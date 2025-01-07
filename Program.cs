@@ -1,8 +1,4 @@
-﻿using System.Drawing;
-using System.Xml;
-
-namespace UltimateChess;
-
+﻿namespace UltimateChess;
 
 public enum PieceSide
 {
@@ -16,316 +12,45 @@ public class Program
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        Board board = new Board();
+        var board = new Board();
 
-        board.SetPiece(new PiecePawn(board, 1, 0, (int)PieceSide.White));
-        board.SetPiece(new PiecePawn(board, 1, 1, (int)PieceSide.White));
-        board.SetPiece(new PiecePawn(board, 1, 2, (int)PieceSide.White));
+        board.SetPiece(new PiecePawn(board, 1, 1, (int)PieceSide.Black));
+        board.SetPiece(new PiecePawn(board, 3, 2, (int)PieceSide.White));
+
+        PieceBase piece1 = (PieceBase)board.СhessBoard[1, 1];
+        PieceBase piece2 = (PieceBase)board.СhessBoard[3, 2];
 
         board.PrintBoard();
 
-        string input;
-        string[] cord;
-        int i, j;
-        int toi, toj;
+        piece1.Move(3, 1);
+        board.PrintBoard();
+        Console.WriteLine();
+        Console.WriteLine();
 
-        do
-        {
-            input = Console.ReadLine();
-            if (input == "0")
-                break;
+        piece2.Move(2, 1);
 
-            cord = input.Split(' ');
-
-            i = int.Parse(cord[0]);
-            j = int.Parse(cord[1]);
-
-            input = Console.ReadLine();
-            if (input == "0")
-                break;
-
-            cord = input.Split(' ');
-
-            toi = int.Parse(cord[0]);
-            toj = int.Parse(cord[1]);
-
-            PieceBase piece = (PieceBase)board.board[i, j];
-            piece.Move(toi, toj);
-
-            board.updatePrintedBoard();
-
-        } while (input != "0");
+        board.PrintBoard();
+        Console.WriteLine();
+        Console.WriteLine();
     }
 }
 
-public class MovementParameters
-{
-    public int currI { get; set; }
-    public int currJ { get; set; }
-    public int toI { get; set; }
-    public int toJ { get; set; }
-    public int Side { get; set; }
-    public Board? Board { get; set; }
-}
-
-public class MovementChek
-{
-    private  int CurrI { get; set; }
-    private int CurrJ { get; set; }
-    private int ToI { get; set; }
-    private int ToJ { get; set; }
-    private Board Board { get; set; }
-
-    public MovementChek(MovementParameters parameters)
-    {
-        this.ToJ = parameters.toJ;
-        this.ToI = parameters.toI;
-        this.CurrJ = parameters.currJ;
-        this.CurrI = parameters.currI;
-        this.Board = parameters.Board ?? throw new ArgumentNullException("Board is null");
-
-    }
-
-    private bool ChekLine()
-    {
-        int k = CurrI;
-        int l = CurrJ;
-        while (k != ToI || l != ToJ)
-        {
-            if (ToI < CurrI)
-                k--;
-            else if (ToI > CurrI)
-                k++;
-
-            if (ToJ < CurrJ)
-                l--;
-            else if (ToJ > CurrJ)
-                l++;
-
-            if (k < 0 || k > 7 || l < 0 || l > 7)
-                return false;
-
-            if (Board.board[k, l] is not null)
-                return false;
-        }
-
-        return true;
-    }
-
-    public (int, int) StraightDiagonalMove()
-    {
-        if (Math.Abs(ToI - CurrI) == Math.Abs(ToJ - CurrJ))
-        {
-            if (ChekLine())
-                return (ToI - CurrI, ToJ - CurrJ);
-        }
-
-        return (0, 0);
-    }
-
-    public int StraightLineMove()
-    {
-        if (ToI == CurrI)
-        {
-            if (ChekLine())
-                return ToJ - CurrJ;
-        }
-        else if (ToJ == CurrJ)
-        {
-            if (ChekLine())
-                return ToI - CurrI;
-        }
-
-        return 0;
-    }
-}
-
-public abstract class PieceBase
-{
-
-    public abstract Board Board { get; set; }
-    public abstract int CurrI { get; set; }
-    public abstract int CurrJ { get; set; }
-    public abstract int Side { get; set; }
-    public abstract int ID { get; set; }
-    public abstract List<(int, int)> DirectionsList { get; set; }
-    public abstract void SetMovementRules(int toI, int toJ);
 
 
-    public MovementParameters SetMovementParameters(int currI, int currJ, int toI, int toJ, int Side, Board Board)
-    {
-        return new MovementParameters()
-        {
-            currI = currI,
-            currJ = currJ,
-            toI = toI,
-            toJ = toJ,
-            Side = Side,
-            Board = Board
-        };
-    }
 
-    public void Move(int toI, int toJ)
-    {
-        SetMovementRules(toI, toJ);
+//      (0,0)  (0,1)  (0,2)  (0,3)  (0,4)  (0,5)  (0,6)  (0,7)
 
-        if (DirectionsList.Contains((toI - CurrI, toJ - CurrJ)))
-        {
-            Board.board[toI, toJ] = this;
-            Board.board[CurrI, CurrJ] = null;
-            CurrI = toI;
-            CurrJ = toJ;
-        }
-        else
-            Console.WriteLine("Invalid move");
-    }
+//      (1,0)  (1,1)  (1,2)  (1,3)  (1,4)  (1,5)  (1,6)  (1,7)
 
-}
+//      (2,0)  (2,1)  (2,2)  (2,3)  (2,4)  (2,5)  (2,6)  (2,7)
 
-public class PiecePawn : PieceBase
-{
-    public override int ID { get; set; }
-    public override Board Board { get; set; }
-    public override int CurrI { get; set; }
-    public override int CurrJ { get; set; }
-    public override int Side { get; set; }
-    public override List<(int, int)> DirectionsList { get; set; }
+//      (3,0)  (3,1)  (3,2)  (3,3)  (3,4)  (3,5)  (3,6)  (3,7)
 
-    public PiecePawn(Board Board, int currI, int currJ, int Side)
-    {
-        this.CurrI = currI;
-        this.CurrJ = currJ;
-        this.Board = Board;
-        this.Side = Side;
-        this.DirectionsList = new List<(int, int)>();
-        this.ID = 1;
-    }
+//      (4,0)  (4,1)  (4,2)  (4,3)  (4,4)  (4,5)  (4,6)  (4,7)
 
-    public override void SetMovementRules(int toI, int toJ)
-    {
-        DirectionsList.Clear();
+//      (5,0)  (5,1)  (5,2)  (5,3)  (5,4)  (5,5)  (5,6)  (5,7)
 
-        MovementChek MovementChek = new MovementChek(SetMovementParameters(CurrI, CurrJ, toI, toJ, Side, Board));
+//      (6,0)  (6,1)  (6,2)  (6,3)  (6,4)  (6,5)  (6,6)  (6,7)
 
-        if (this.Side == 1) // white
-        {
-            if (Board.board[toI, toJ] is null)
-                DirectionsList.Add((1, 0));
+//      (7,0)  (7,1)  (7,2)  (7,3)  (7,4)  (7,5)  (7,6)  (7,7)
 
-            if (this.CurrI == 1)
-                if (MovementChek.StraightLineMove() == 2)
-                    DirectionsList.Add((2, 0));
-        }
-        else if (this.Side == 2) // black
-        {
-            if (Board.board[toI, toJ] is null)
-                DirectionsList.Add((-1, 0));
-
-            if (this.CurrI == 6)
-                if (MovementChek.StraightLineMove() == 2)
-                    DirectionsList.Add((-2, 0));
-        }
-    }
-
-    
-}
-
-//public class Rook : PieceBase
-//{
-
-//}
-
-//public class Knight : PieceBase
-//{
-
-//}
-
-//public class Bishop : PieceBase
-//{
-
-//}
-
-//public class Queen : PieceBase
-//{
-
-//}
-
-//public class King : PieceBase
-//{
-
-//}
-
-public class Board
-{
-    public object[,] board;
-
-    public Board()
-    {
-        board = new object[8, 8];
-    }
-
-    public void SetPiece(object piece)
-    {
-        if (piece is PieceBase p)
-            board[p.CurrI, p.CurrJ] = piece;
-    }
-
-    public string IconById(int id, int side)
-    {
-        if (side == 1)
-        {
-            Dictionary<int, string> figuresDic = new()
-            {
-                {1, "♟"},
-                {2, "♜"},
-                {3, "♞"},
-                {4, "♝"},
-                {5, "♛"},
-                {6, "♚"},
-                {0, "-"}
-            };
-            return figuresDic[id];
-        }
-        else
-        {
-            Dictionary<int, string> figuresDic = new()
-            {
-                {1, "♙"},
-                {2, "♖"},
-                {3, "♘"},
-                {4, "♗"},
-                {5, "♕"},
-                {6, "♔"},
-                {0, "-"}
-            };
-            return figuresDic[id];
-        }
-
-    }
-
-    public void PrintBoard()
-    {
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                if (board[i, j] == null)
-                    Console.Write("□ ");
-                else if (board[i, j] is PieceBase piece)
-                {
-                    Console.Write(IconById(piece.ID, piece.Side) + " ");
-                }
-
-            }
-            Console.WriteLine();
-        }
-    }
-
-    public void updatePrintedBoard()
-    {
-        Console.SetCursorPosition(0, 0);
-        Console.Clear();
-
-        PrintBoard();
-    }
-}
