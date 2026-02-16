@@ -2,13 +2,13 @@
 
 public class Board
 {
-    public object[,] СhessBoard;
+    public PieceBase[,] СhessBoard;
     public List<PieceBase> AlivePieces = new();
     public List<PieceBase> DeadPieces = new();
 
     public Board()
     {
-        СhessBoard = new object[8, 8];
+        СhessBoard = new PieceBase[8, 8];
     }
 
     public void KillPiece(PieceBase piece)
@@ -21,15 +21,11 @@ public class Board
         AlivePieces.Remove(piece);
     }
 
-    public void SetPiece(object piece)
+    public void SetPiece(PieceBase piece)
     {
-        if (piece is null)
-            ExceptionHandler.PrintAndAddError("Piece is null");
+        СhessBoard[piece.CurrI, piece.CurrJ] = piece;
 
-        if (piece is PieceBase p)
-            СhessBoard[p.CurrI, p.CurrJ] = piece;
-
-        AlivePieces.Add((PieceBase)piece);
+        AlivePieces.Add(piece);
     }
 
     public void SetBasePieces()
