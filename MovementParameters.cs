@@ -9,7 +9,7 @@ public class MovementParameters
     public int toI { get; set; }
     public int toJ { get; set; }
     public int Side { get; set; }
-    public Board? Board { get; set; }
+    public IBoard? Board { get; set; }
 }
 
 public class MovementChek
@@ -18,7 +18,7 @@ public class MovementChek
     private int CurrJ { get; set; }
     private int ToI { get; set; }
     private int ToJ { get; set; }
-    private Board Board { get; set; }
+    private IBoard Board { get; set; }
 
     public MovementChek(MovementParameters parameters)
     {

@@ -1,7 +1,7 @@
 ﻿namespace UltimateChess;
 public abstract class PieceBase
 {
-    public abstract Board Board { get; set; }
+    public abstract IBoard Board { get; set; }
     public abstract int CurrI { get; set; }
     public abstract int CurrJ { get; set; }
     public abstract int Side { get; set; }
@@ -9,7 +9,7 @@ public abstract class PieceBase
     public abstract bool CanMove(int toI, int toJ);
     public abstract bool CanAttack(int toI, int toJ);
 
-    public MovementParameters SetMovementParameters(int currI, int currJ, int toI, int toJ, int Side, Board Board)
+    public MovementParameters SetMovementParameters(int currI, int currJ, int toI, int toJ, int Side, IBoard Board)
     {
         return new MovementParameters()
         {
@@ -100,13 +100,13 @@ public abstract class PieceBase
 public class PiecePawn : PieceBase
 {
     public override int ID { get; set; }
-    public override Board Board { get; set; }
+    public override IBoard Board { get; set; }
     public override int CurrI { get; set; }
     public override int CurrJ { get; set; }
     public override int Side { get; set; }
     private bool Jump = false;
 
-    public PiecePawn(Board Board, int currI, int currJ, int Side)
+    public PiecePawn(IBoard Board, int currI, int currJ, int Side)
     {
         this.CurrI = currI;
         this.CurrJ = currJ;
@@ -189,12 +189,12 @@ public class PiecePawn : PieceBase
 public class PieceRook : PieceBase
 {
     public override int ID { get; set; }
-    public override Board Board { get; set; }
+    public override IBoard Board { get; set; }
     public override int CurrI { get; set; }
     public override int CurrJ { get; set; }
     public override int Side { get; set; }
 
-    public PieceRook(Board Board, int currI, int currJ, int Side)
+    public PieceRook(IBoard Board, int currI, int currJ, int Side)
     {
         this.CurrI = currI;
         this.CurrJ = currJ;
@@ -230,12 +230,12 @@ public class PieceRook : PieceBase
 public class PieceKnight : PieceBase
 {
     public override int ID { get; set; }
-    public override Board Board { get; set; }
+    public override IBoard Board { get; set; }
     public override int CurrI { get; set; }
     public override int CurrJ { get; set; }
     public override int Side { get; set; }
 
-    public PieceKnight(Board Board, int currI, int currJ, int Side)
+    public PieceKnight(IBoard Board, int currI, int currJ, int Side)
     {
         this.CurrI = currI;
         this.CurrJ = currJ;
@@ -278,12 +278,12 @@ public class PieceKnight : PieceBase
 public class PieceBishop : PieceBase
 {
     public override int ID { get; set; }
-    public override Board Board { get; set; }
+    public override IBoard Board { get; set; }
     public override int CurrI { get; set; }
     public override int CurrJ { get; set; }
     public override int Side { get; set; }
 
-    public PieceBishop(Board Board, int currI, int currJ, int Side)
+    public PieceBishop(IBoard Board, int currI, int currJ, int Side)
     {
         this.CurrI = currI;
         this.CurrJ = currJ;
@@ -314,12 +314,12 @@ public class PieceBishop : PieceBase
 public class PieceQueen : PieceBase
 {
     public override int ID { get; set; }
-    public override Board Board { get; set; }
+    public override IBoard Board { get; set; }
     public override int CurrI { get; set; }
     public override int CurrJ { get; set; }
     public override int Side { get; set; }
 
-    public PieceQueen(Board Board, int currI, int currJ, int Side)
+    public PieceQueen(IBoard Board, int currI, int currJ, int Side)
     {
         this.CurrI = currI;
         this.CurrJ = currJ;
@@ -362,12 +362,12 @@ public class PieceQueen : PieceBase
 public class PieceKing : PieceBase
 {
     public override int ID { get; set; }
-    public override Board Board { get; set; }
+    public override IBoard Board { get; set; }
     public override int CurrI { get; set; }
     public override int CurrJ { get; set; }
     public override int Side { get; set; }
 
-    public PieceKing(Board Board, int currI, int currJ, int Side)
+    public PieceKing(IBoard Board, int currI, int currJ, int Side)
     {
         this.CurrI = currI;
         this.CurrJ = currJ;

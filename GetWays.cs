@@ -1,17 +1,17 @@
 ﻿namespace UltimateChess;
 class Ways
 {
-    private Board board;
+    private IBoard board;
     private PieceBase piece;
     private PieceBase piece2 = null;
     public int[,] WaysList;
 
-    public Ways(Board board, PieceBase piece)
+    public Ways(IBoard board, PieceBase piece)
     {
         this.board = board;
         this.piece = piece;
     }
-    public Ways(Board board, PieceBase piece, PieceBase piece2)
+    public Ways(IBoard board, PieceBase piece, PieceBase piece2)
     {
         this.board = board;
         this.piece = piece;

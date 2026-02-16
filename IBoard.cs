@@ -1,10 +1,23 @@
 ﻿namespace UltimateChess;
 
-public class Board
+public interface IBoard
 {
-    public PieceBase[,] СhessBoard;
-    public List<PieceBase> AlivePieces = new();
-    public List<PieceBase> DeadPieces = new();
+    public PieceBase[,] СhessBoard { get; set; }
+    public List<PieceBase> AlivePieces { get; set; }
+    public List<PieceBase> DeadPieces { get; set; }
+    
+    void KillPiece(PieceBase piece);
+    void SetPiece(PieceBase piece);
+    void SetBasePieces();
+    void PrintBoard();
+    void updatePrintedBoard();
+}
+
+public class Board : IBoard
+{
+    public PieceBase[,] СhessBoard { get; set; }
+    public List<PieceBase> AlivePieces { get; set; } = new();
+    public List<PieceBase> DeadPieces { get; set; } = new();
 
     public Board()
     {
