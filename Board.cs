@@ -60,39 +60,6 @@ public class Board
                 
     }
 
-    public string IconById(int id, int side)
-    {
-        if (side == 1)
-        {
-            Dictionary<int, string> figuresDic = new()
-            {
-                {1, "♟"},
-                {2, "♜"},
-                {3, "♞"},
-                {4, "♝"},
-                {5, "♛"},
-                {6, "♚"},
-                {0, "-"}
-            };
-            return figuresDic[id];
-        }
-        else
-        {
-            Dictionary<int, string> figuresDic = new()
-            {
-                {1, "♙"},
-                {2, "♖"},
-                {3, "♘"},
-                {4, "♗"},
-                {5, "♕"},
-                {6, "♔"},
-                {0, "-"}
-            };
-            return figuresDic[id];
-        }
-
-    }
-
     public void PrintBoard()
     {
         for (int i = -1; i < 8; i++)
@@ -124,7 +91,7 @@ public class Board
                         Console.Write("⊖    ");
                 else if (СhessBoard[i, j] is PieceBase piece)
                 {
-                    Console.Write(IconById(piece.ID, piece.Side) + "    ");
+                    Console.Write(PieceSettings.IconById(piece.ID, piece.Side) + "    ");
                 }
 
             }

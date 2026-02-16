@@ -46,7 +46,7 @@ class Ways
                 {
                     if (board.СhessBoard[i, j] is PieceBase p)
 
-                        Console.Write(board.IconById(p.ID, p.Side) + "    ");
+                        Console.Write(PieceSettings.IconById(p.ID, p.Side) + "    ");
                 }
 
                 else if (WaysList[i, j] == 0)
